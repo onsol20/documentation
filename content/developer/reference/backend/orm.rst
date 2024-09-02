@@ -1064,13 +1064,15 @@ Map
 
 .. note::
 
-    Since V13, multi-relational field access is supported and works like a mapped call:
+    Since V13, multi-relational field access is supported and works like the old mapped call.
+    Since V19, mapped returns a list where the path or function is applied to each element in self.
 
     .. code-block:: python3
 
-        records.partner_id  # == records.mapped('partner_id')
-        records.partner_id.bank_ids  # == records.mapped('partner_id.bank_ids')
-        records.partner_id.mapped('name')  # == records.mapped('partner_id.name')
+        records.partner_id  # union of partner_id from records
+        records.mapped('partner_id')  # [record.partner_id for record in records]
+        records.partner_id.bank_ids  # union of banks of partners of records
+        records.partner_id.mapped('name')
 
 Sort
 ~~~~
